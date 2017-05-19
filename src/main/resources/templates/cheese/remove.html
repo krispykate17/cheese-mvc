@@ -8,12 +8,10 @@
     <nav th:replace="fragments :: nav"></nav>
 
     <form method="post">
-        <label>Cheese Name:</label>
-        <input type="text" name="cheeseName" />
-        <label>Description:</label>
-        <input type="textarea" name="cheeseDescription" />
-        <input type="submit" value="Add Cheese!" />
+        <div th:each="cheese : ${cheeses}">
+            <input type="checkbox" name="cheeseName" th:value="${cheese.key}" th:text="${cheese.key}"/><br/>
+        </div>
+        <input type="submit" value="Remove From List!"/>
     </form>
-
 </body>
 </html>
