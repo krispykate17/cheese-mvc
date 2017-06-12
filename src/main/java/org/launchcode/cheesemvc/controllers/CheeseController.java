@@ -75,17 +75,24 @@ public class CheeseController {
         Cheese theCheese = CheeseData.getById(cheeseId);
 
         model.addAttribute("cheese", theCheese);
+        model.addAttribute("cheeseTypes", CheeseType.values());
 
         return "cheese/edit";
     }
 
     @RequestMapping(value = "edit", method = RequestMethod.POST)
-    public String processEditForm(int cheeseId, String name, String description) {
-        Cheese theCheese = CheeseData.getById(cheeseId);
+    public String processEditForm(@ModelAttribute @Valid Cheese theCheese, Errors errors, Model model) {
+        if (errors.hasErrors()) {
+            model.addAttribute("cheese", theCheese);
+            model.addAttribute("cheeseTypes", CheeseType.values());
 
-        theCheese.setName(name);
-        theCheese.setDescription(description);
+            return "cheese/edit";
+        }
 
+        Cheese c = CheeseData.getById(theCheese.getCheeseId());
+        c.setName(theCheese.getName());
+        c.setDescription(theCheese.getDescription());
+        c.setType(theCheese.getType());
         return "redirect:";
     }
 }

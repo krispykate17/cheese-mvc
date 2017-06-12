@@ -5,18 +5,21 @@
 <body class="container">
 <h1 th:text="'Sign Up'">Default Title</h1>
 
-<form method="post" style="max-width:600px;" action="add">
+<form method="post" style="max-width:600px;" action="add" th:object="${user}">
     <div class="form-group">
-        <label for="name-field">Username</label>
-        <input class="form-control" id="name-field" type="text" name="username" th:value="${user.username}"/>
+        <label th:for="username">Username</label>
+        <input class="form-control" th:field="*{username}"/>
+        <span th:errors="*{username}" class="error"></span>
     </div>
     <div class="form-group">
-        <label for="email-field">Email</label>
-        <input class="form-control" id="email-field" type="email" name="email" th:value="${user.email}" />
+        <label th:for="email">Email</label>
+        <input class="form-control" th:field="*{email}" />
+        <span th:errors="*{email}" class="error"></span>
     </div>
     <div class="form-group">
-        <label for="password-field">Password</label>
+        <label th:for="password">Password</label>
         <input class="form-control" id="password-field" type="password" name="password" />
+        <span th:errors="*{password}" class="error"></span>
     </div>
     <div class="form-group">
         <label for="verify-field">Verify Password</label>
